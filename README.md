@@ -229,7 +229,3 @@ insert into book_information value('00000001','测试用书','admin','测试','�
 insert into book_information value('00000002','测试用书','admin','测试','南开出版社',1,0);
 insert into book_information value('00000003','测试用书','admin','测试','南开出版社',1,0);
 ```
-
-
-ALTER TABLE 表名 ADD CONSTRAINT 外键名称 FOREIGN KEY (外键字段) REFERENCES 主表名 (主表字段名) ON UPDATE CASCADE ON DELETE CASCADE;
-
