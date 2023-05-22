@@ -106,19 +106,32 @@ def auto_update(root1):
 def autoupdate(root1,entry1):
     entry2 = input62.get()
     entry3 = input63.get()
-    sql1 = 'call updatereader(%s,%s,%s)'
-    param1 =(entry2,entry3,entry1)
-    tcursor.execute(sql1,param1)
-    conn.commit()
-    root1.destroy()
-    def gotoinsert():
-        root.destroy()
-        update()
-    root = tk.Tk()
-    root.title('提示')
-    tk.Label(root, text="更新成功！").pack()
-    tk.Button(root, text='确认', width=10, command=gotoinsert).pack()
-    root.mainloop()
+    
+    if entry1 and entry2 and entry3:
+        sql1 = 'call updatereader(%s,%s,%s)'
+        param1 =(entry2,entry3,entry1)
+        tcursor.execute(sql1,param1)
+        conn.commit()
+        root1.destroy()
+        def gotoinsert():
+            root.destroy()
+            update()
+        root = tk.Tk()
+        root.title('提示')
+        tk.Label(root, text="更新成功！").pack()
+        tk.Button(root, text='确认', width=10, command=gotoinsert).pack()
+        root.mainloop()
+    else:
+        root1.destroy()
+        def gotoinsert():
+            root.destroy()
+            update()
+        root = tk.Tk()
+        root.title('提示')
+        tk.Label(root, text="更新失败！").pack()
+        tk.Button(root, text='确认', width=10, command=gotoinsert).pack()
+        root.mainloop()
+
 
 def insert():
     def gotologin(num):
@@ -476,19 +489,39 @@ def auto_insert_book(root1):
     entry3 = input13.get()
     entry4 = input14.get()
     entry5 = input15.get()
-    sql = 'insert into book_information values(%s,%s,%s,%s,%s,1,0)'
-    param =(entry1,entry2,entry3,entry4,entry5)
-    tcursor.execute(sql,param)
-    conn.commit()
-    root1.destroy()
-    def gotoinsert():
-        root.destroy()
-        insert_book()
-    root = tk.Tk()
-    root.title('提示')
-    tk.Label(root, text="插入成功！").pack()
-    tk.Button(root, text='确认', width=10, command=gotoinsert).pack()
-    root.mainloop()
+
+    if entry1 and entry2 and entry3 and entry4 and entry5:
+        sql = 'insert into book_information values(%s,%s,%s,%s,%s,1,0)'
+        param =(entry1,entry2,entry3,entry4,entry5)
+        tcursor.execute(sql,param)
+        conn.commit()
+        root1.destroy()
+        def gotoinsert():
+            root.destroy()
+            insert_book()
+        root = tk.Tk()
+        root.title('提示')
+        tk.Label(root, text="插入成功！").pack()
+        tk.Button(root, text='确认', width=10, command=gotoinsert).pack()
+        root.mainloop()
+    else:
+        sql = 'insert into book_information values(%s,%s,%s,%s,%s,1,0)'
+        param =(entry1,entry2,entry3,entry4,"")
+        tcursor.execute(sql,param)
+        conn.commit()
+        sql = 'delete from book_information where book_id=%s'
+        param =("")
+        tcursor.execute(sql,param)
+        conn.commit()
+        root1.destroy()
+        def gotoinsert():
+            root.destroy()
+            insert_book()
+        root = tk.Tk()
+        root.title('提示')
+        tk.Label(root, text="插入失败！").pack()
+        tk.Button(root, text='确认', width=10, command=gotoinsert).pack()
+        root.mainloop()
 
 def delete_book():
     def back(num):
